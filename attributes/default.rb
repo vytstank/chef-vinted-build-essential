@@ -18,4 +18,3 @@
 #
 
 default['build-essential']['compile_time'] = false
-default['build-essential']['msys2']['path'] = "#{ENV['SYSTEMDRIVE']}\\msys2"

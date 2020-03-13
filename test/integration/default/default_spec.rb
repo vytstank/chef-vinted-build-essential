@@ -1,13 +1,7 @@
 require 'pathname'
 
 # FreeBSD 10+ uses clang
-compilers = if (os[:family] == 'freebsd') && (os[:release].to_i == 10)
-              %w(cc c++)
-            elsif os[:family] == 'windows'
-              %w(C:\\msys2\\mingw32\\bin\\gcc C:\\msys2\\mingw32\\bin\\g++)
-            else
-              %w(gcc g++ cc c++)
-            end
+compilers = %w(gcc g++ cc c++)
 
 compilers.each do |compiler|
   describe command("#{compiler} --version") do
@@ -17,13 +11,7 @@ compilers.each do |compiler|
 end
 
 # On FreeBSD `make` is actually BSD make
-gmake_bin = if os[:family] == 'freebsd'
-              'gmake'
-            elsif os[:family] == 'windows'
-              'C:\\msys2\\usr\\bin\\make'
-            else
-              'make'
-            end
+gmake_bin = 'make'
 
 # Ensure GNU Make exists
 describe command("#{gmake_bin} --version") do
