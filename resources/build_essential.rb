@@ -1,5 +1,5 @@
 #
-# Cookbook:: build-essential
+# Cookbook:: vinted-build-essential
 # resource:: build_essential
 #
 # Copyright:: 2008-2018, Chef Software Inc.
@@ -25,70 +25,11 @@ property :compile_time, [true, false], default: false
 
 action :install do
   case node['platform_family']
-  when 'debian'
-    package %w( autoconf binutils-doc bison build-essential flex gettext ncurses-dev )
-  when 'amazon', 'fedora', 'rhel'
+  when 'rhel'
     package %w( autoconf bison flex gcc gcc-c++ gettext kernel-devel make m4 ncurses-devel patch )
 
     # Ensure GCC 4 is available on older pre-6 EL
     package %w( gcc44 gcc44-c++ ) if !platform?('amazon') && node['platform_version'].to_i < 6
-  when 'freebsd'
-    package 'devel/gmake'
-    package 'devel/autoconf'
-    package 'devel/m4'
-    package 'devel/gettext'
-  when 'mac_os_x'
-    xcode_command_line_tools 'install'
-  when 'omnios'
-    package 'developer/gcc48'
-    package 'developer/object-file'
-    package 'developer/linker'
-    package 'developer/library/lint'
-    package 'developer/build/gnu-make'
-    package 'system/header'
-    package 'system/library/math/header-math'
-
-    # Per OmniOS documentation, the gcc bin dir isn't in the default
-    # $PATH, so add it to the running process environment
-    # http://omnios.omniti.com/wiki.php/DevEnv
-    ENV['PATH'] = "#{ENV['PATH']}:/opt/gcc-4.7.2/bin"
-  when 'solaris2'
-    if node['platform_version'].to_f == 5.10
-      Chef::Log.warn('build-essential does not support Solaris 10. You will need to install SUNWbison, SUNWgcc, SUNWggrp, SUNWgmake, and SUNWgtar from the Solaris DVD')
-    elsif node['platform_version'].to_f == 5.11
-      package 'autoconf'
-      package 'automake'
-      package 'bison'
-      package 'gnu-coreutils'
-      package 'flex'
-      # lock gcc versions because we don't use 5 yet
-      %w(gcc gcc-c gcc-c++).each do |pkg|
-        package pkg do # ~FC009
-          accept_license true
-          version '4.8.2'
-        end
-      end
-      package 'gnu-grep'
-      package 'gnu-make'
-      package 'gnu-patch'
-      package 'gnu-tar'
-      package 'make'
-      package 'pkg-config'
-      package 'ucb'
-    end
-  when 'smartos'
-    package 'autoconf'
-    package 'binutils'
-    package 'build-essential'
-    package 'gcc47'
-    package 'gmake'
-    package 'pkg-config'
-  when 'suse'
-    package %w( autoconf bison flex gcc gcc-c++ kernel-default-devel make m4 )
-    package 'insserv-compat' if node['platform_version'].to_i >= 15
-    package %w( gcc48 gcc48-c++ ) if node['platform_version'].to_i < 12
-  when 'windows'
-    include_recipe 'build-essential::_windows'
   else
     Chef::Log.warn <<-EOH
   A build-essential recipe does not exist for '#{node['platform_family']}'. This

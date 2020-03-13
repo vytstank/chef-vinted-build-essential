@@ -1,3 +1,3 @@
 apt_update 'update'
 
-include_recipe 'build-essential::default'
+include_recipe 'vinted-build-essential::default'

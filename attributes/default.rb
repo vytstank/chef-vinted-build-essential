@@ -1,5 +1,5 @@
 #
-# Cookbook:: build-essential
+# Cookbook:: vinted-build-essential
 # Attributes:: default
 #
 # Copyright:: 2008-2017, Chef Software, Inc.
@@ -18,4 +18,3 @@
 #
 
 default['build-essential']['compile_time'] = false
-default['build-essential']['msys2']['path'] = "#{ENV['SYSTEMDRIVE']}\\msys2"
