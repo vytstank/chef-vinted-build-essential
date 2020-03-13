@@ -2,13 +2,6 @@
 
 This file is used to list changes made in each version of the build-essential cookbook.
 
-068d6fd (HEAD -> linux_only_migrate_to_vinted_infra_ci, origin/linux_only_migrate_to_vinted_infra_ci) describe changes and difference to build-essential cookbook
-8666e80 rename to vinted-build-essential
-0bda266 kitchen test on Chef 12.22.5
-e81247e remove kitchen-dokken, travis and delivery support
-ddbf2d6 remove non-centos support
-c28f754 Chefspec is not used
-
 ## 9.0.0 (2020-03-13)
 
 - Fork from https://github.com/chef-boneyard/build-essential
