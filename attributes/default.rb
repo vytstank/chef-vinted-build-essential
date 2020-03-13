@@ -1,5 +1,5 @@
 #
-# Cookbook:: build-essential
+# Cookbook:: vinted-build-essential
 # Attributes:: default
 #
 # Copyright:: 2008-2017, Chef Software, Inc.
